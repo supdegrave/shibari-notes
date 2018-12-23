@@ -11,13 +11,13 @@ export class Routes {
             });
         });
 
-        app.route('/ties')
+        app.route('/api/ties')
             // Create a new tie
             .post(this.tieController.post)
             // Get all ties
             .get(this.tieController.get);
 
-        app.route('/ties/:id')
+        app.route('/api/ties/:id')
             // get a specific tie by id
             .get(this.tieController.get)
             // update a specific tie
