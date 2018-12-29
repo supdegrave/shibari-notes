@@ -1,12 +1,13 @@
-import { BrowserModule } from '@angular/platform-browser';
+import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
-import { LoginViewComponent } from './views/login-view/login-view.component';
+import { RoutingModule } from './routing/routing.module';
 import { HomeViewComponent } from './views/home-view/home-view.component';
+import { LoginViewComponent } from './views/login-view/login-view.component';
 import { TieViewComponent } from './views/tie-view/tie-view.component';
 import { TiesViewComponent } from './views/ties-view/ties-view.component';
-import { RoutingModule } from './routing/routing.module';
 
 @NgModule({
     declarations: [
@@ -18,7 +19,8 @@ import { RoutingModule } from './routing/routing.module';
     ],
     imports: [
         BrowserModule,
-        RoutingModule
+        RoutingModule,
+        HttpClientModule
     ],
     providers: [],
     bootstrap: [

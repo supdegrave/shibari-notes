@@ -11,6 +11,7 @@ const PATHS = {
     LOGIN: 'login',
     TIES: 'ties',
     TIES_WITH_ID: 'ties/:id',
+    NEW_TIE: 'ties/new',
 };
 
 const routes: Routes = [
@@ -31,6 +32,11 @@ const routes: Routes = [
     },
     {
         path: PATHS.TIES_WITH_ID,
+        component: TieViewComponent,
+        // canActivate: [AuthGuardService],
+    },
+    {
+        path: PATHS.NEW_TIE,
         component: TieViewComponent,
         // canActivate: [AuthGuardService],
     },

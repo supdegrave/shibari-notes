@@ -1,3 +1,7 @@
-<p>
-  tie-view works!
+<p *ngIf="!isNew; else new">
+  {{tie?.name}}
 </p>
+
+<ng-template #new>
+    <p>Add a new tie!</p>
+</ng-template>

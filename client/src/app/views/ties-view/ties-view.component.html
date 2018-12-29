@@ -1,3 +1,5 @@
-<p>
-  ties-view works!
-</p>
+<ul>
+    <li *ngFor="let tie of tiesList">
+        <a href="ties/{{tie._id}}">{{tie.name}}</a>
+    </li>
+</ul>
