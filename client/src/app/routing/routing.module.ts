@@ -5,7 +5,6 @@ import { HomeViewComponent } from '../views/home-view/home-view.component';
 import { LoginViewComponent } from '../views/login-view/login-view.component';
 import { TieViewComponent } from '../views/tie-view/tie-view.component';
 import { TiesViewComponent } from '../views/ties-view/ties-view.component';
-import { environment } from 'src/environments/environment';
 
 const PATHS = {
     HOME: '',
@@ -45,7 +44,7 @@ const routes: Routes = [
 
 
 @NgModule({
-    imports: [RouterModule.forRoot(routes, { enableTracing: environment.routerTracing })],
+    imports: [RouterModule.forRoot(routes)],
     exports: [RouterModule],
     // providers: [AuthGuardService]
 })
