@@ -1,7 +1,8 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { ParamMap, ActivatedRoute } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { environment } from 'src/environments/environment';
+import { Tie } from 'src/app/models/tie';
 
 @Component({
     selector: 'app-tie-view',
@@ -10,7 +11,7 @@ import { environment } from 'src/environments/environment';
 })
 export class TieViewComponent implements OnInit {
 
-    tie; // TODO: type
+    tie: Tie;
     isNew: boolean;
 
     constructor(
@@ -24,12 +25,19 @@ export class TieViewComponent implements OnInit {
         this.isNew = tieId === 'new';
 
         if (!this.isNew) {
-            this.http.get(`${environment.apiServer}/api/ties/${tieId}`)
+            this.http.get(`${environment.apiServer}/api/ties4567/${tieId}`)
                 .subscribe(
-                    (response) => this.tie = response,
-                    (error) => console.warn(`get: /api/ties\nerror:`, error)
+                    this.onFetchSuccess,
+                    this.onFetchError
                 );
         }
+    }
 
+    onFetchSuccess = (response: ShibariNotes.Tie) => {
+        this.tie = new Tie(response);
+    }
+
+    onFetchError = (error: HttpErrorResponse) => {
+        console.warn(`get: /api/ties\nerror:`, error);
     }
 }

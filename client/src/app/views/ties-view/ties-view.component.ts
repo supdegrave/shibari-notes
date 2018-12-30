@@ -1,5 +1,6 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { Tie } from 'src/app/models/tie';
 
 import { environment } from '../../../environments/environment';
 
@@ -10,17 +11,25 @@ import { environment } from '../../../environments/environment';
 })
 export class TiesViewComponent implements OnInit {
 
-    tiesList;
+    tiesList: Tie[];
 
     constructor(private http: HttpClient) { }
 
     ngOnInit() {
         this.http.get(`${environment.apiServer}/api/ties`)
-        .subscribe(
-            (response) => this.tiesList = response,
-            // (response) => console.log('get: /api/ties\nresponse:', response),
-            (error) => console.warn(`get: /api/ties\nerror:`, error)
-        );
+            .subscribe(
+                this.onFetchSuccess,
+                this.onFetchError
+            );
+    }
+
+    onFetchSuccess = (response: ShibariNotes.Tie[]) => {
+        this.tiesList = response.map((tie: ShibariNotes.Tie) => new Tie(tie));
+        console.log(this.tiesList);
+    }
+
+    onFetchError = (error: HttpErrorResponse): void => {
+        console.warn(`get: /api/ties\nerror:`, error);
     }
 
 }
