@@ -7,7 +7,7 @@ import { Tie } from 'src/app/models/tie';
 @Component({
     selector: 'app-tie-view',
     templateUrl: './tie-view.component.html',
-    styleUrls: ['./tie-view.component.css']
+    styleUrls: ['./tie-view.component.scss']
 })
 export class TieViewComponent implements OnInit {
 

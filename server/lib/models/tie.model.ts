@@ -7,6 +7,10 @@ export const TieModel = new Schema({
         type: String,
         required: 'Tie name'
     },
+    description: {
+        type: String,
+        required: 'Description'
+    },
     teacher: {
         type: String,
         required: 'Teacher'

@@ -1,7 +1,16 @@
-<p *ngIf="!isNew; else new">
-  {{tie?.name}}
-</p>
+<!--
+name: string;
+description: string;
+teacher: String;
+style: String;
+learningContext: String;
+tags: string[];
+created: string;
+-->
 
-<ng-template #new>
-    <p>Add a new tie!</p>
-</ng-template>
+<mat-card>
+    <mat-card-title>{{tie?.name}}</mat-card-title>
+    <mat-card-subtitle>{{tie?.teacher}} / {{tie?.style}} / {{tie?.learningContext}}</mat-card-subtitle>
+    <hr>
+    <div id="description">{{tie?.description}}</div>
+</mat-card>
