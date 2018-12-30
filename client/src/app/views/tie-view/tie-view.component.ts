@@ -25,7 +25,7 @@ export class TieViewComponent implements OnInit {
         this.isNew = tieId === 'new';
 
         if (!this.isNew) {
-            this.http.get(`${environment.apiServer}/api/ties4567/${tieId}`)
+            this.http.get(`${environment.apiServer}/api/ties/${tieId}`)
                 .subscribe(
                     this.onFetchSuccess,
                     this.onFetchError
