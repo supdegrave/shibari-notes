@@ -9,8 +9,36 @@ created: string;
 -->
 
 <mat-card>
-    <mat-card-title>{{tie?.name}}</mat-card-title>
+    <mat-card-title>
+        <div [contentEditable]="isContentEditable">{{tie?.name}}</div>
+    </mat-card-title>
     <mat-card-subtitle>{{tie?.teacher}} / {{tie?.style}} / {{tie?.learningContext}}</mat-card-subtitle>
+    <!--
+    <mat-card-subtitle>
+        tags: <span class="tag-link" *ngFor="let tag of tie?.tags">{{tag}}</span>
+    </mat-card-subtitle>
+    -->
     <hr>
-    <div id="description">{{tie?.description}}</div>
+    <mat-card-content>
+        <div id="description">
+            {{tie?.description}}
+        </div>
+    </mat-card-content>
+
+    <mat-card-actions>
+        <button *ngIf="isEditButtonVisible" mat-stroked-button (click)="editClick()">Edit</button>
+        <div *ngIf="isSaveCancelVisible">
+            <button mat-stroked-button (click)="cancelClick()">Cancel</button>
+            <button mat-stroked-button (click)="saveClick()">Save</button>
+        </div>
+    </mat-card-actions>
 </mat-card>
+
+<!--
+<mat-card-title>	  Card title
+<mat-card-subtitle>	  Card subtitle
+<mat-card-content>	  Primary card content. Intended for blocks of text
+<img mat-card-image>  Card image. Stretches the image to the container width
+<mat-card-actions>	  Container for buttons at the bottom of the card
+<mat-card-footer>	  Section anchored to the bottom of the card
+ -->

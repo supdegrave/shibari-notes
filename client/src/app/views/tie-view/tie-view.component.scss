@@ -1,8 +1,21 @@
 .mat-card {
     margin: 10px;
 
-    div#description {
+    mat-card-content {
         height: 300px;
         border: 1px solid lightgray;
     }
+
+    .mat-card-actions {
+        text-align: right;
+
+        button {
+            margin-left: 0.5em;
+        }
+    }
+
+    span.tag-link:not(:last-child)::after {
+        content: ', ';
+    }
+
 }

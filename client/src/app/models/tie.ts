@@ -13,6 +13,8 @@ export class Tie implements ShibariNotes.Tie {
         Object.assign(this, tie);
     }
 
+    isDirty: boolean;
+
     get id() {
         return this._id;
     }

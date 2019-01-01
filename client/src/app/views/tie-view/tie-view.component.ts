@@ -14,10 +14,15 @@ export class TieViewComponent implements OnInit {
     tie: Tie;
     isNew: boolean;
 
+    // template interaction properties
+    isContentEditable: boolean;
+
     constructor(
         private http: HttpClient,
         private route: ActivatedRoute
-    ) { }
+    ) {
+        this.isContentEditable = false;
+    }
 
     ngOnInit() {
         const tieId: string = this.route.snapshot.paramMap.get('id');
@@ -39,5 +44,29 @@ export class TieViewComponent implements OnInit {
 
     onFetchError = (error: HttpErrorResponse) => {
         console.warn(`get: /api/ties\nerror:`, error);
+    }
+
+    get isEditButtonVisible(): boolean {
+        return !this.isContentEditable;
+    }
+
+    get isSaveCancelVisible(): boolean {
+        return this.isContentEditable && this.tie.isDirty;
+    }
+
+    editClick() {
+        this.isContentEditable = true;
+        // TODO: this should be based on observing model updates
+        this.tie.isDirty = true;
+    }
+
+    cancelClick() {
+        this.isContentEditable = false;
+        // TODO: discard changes
+    }
+
+    saveClick() {
+        this.isContentEditable = false;
+        // TODO: save changes
     }
 }
