@@ -35,6 +35,8 @@ export class TieViewComponent implements OnInit {
                     this.onFetchSuccess,
                     this.onFetchError
                 );
+        } else {
+            this.isContentEditable = true;
         }
     }
 
@@ -46,27 +48,29 @@ export class TieViewComponent implements OnInit {
         console.warn(`get: /api/ties\nerror:`, error);
     }
 
-    get isEditButtonVisible(): boolean {
-        return !this.isContentEditable;
-    }
-
-    get isSaveCancelVisible(): boolean {
-        return this.isContentEditable && this.tie.isDirty;
-    }
-
     editClick() {
         this.isContentEditable = true;
-        // TODO: this should be based on observing model updates
-        this.tie.isDirty = true;
+
+        // console.warn('TODO: remove - only for development');
+        // this.tie.name = 'fnord';
     }
 
     cancelClick() {
         this.isContentEditable = false;
-        // TODO: discard changes
+        this.tie.discardChanges();
+        console.warn('TODO: what should this do in case of ties/new');
     }
 
     saveClick() {
         this.isContentEditable = false;
-        // TODO: save changes
+        console.warn('TODO: save changes');
+    }
+
+    updateTie(property: string, event): void {
+        try {
+            this.tie[property] = event.target.innerText;
+        } catch (error) {
+            console.log(`Attempted to set missing property [${property}]`, error);
+        }
     }
 }

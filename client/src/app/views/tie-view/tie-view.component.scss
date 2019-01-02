@@ -18,4 +18,8 @@
         content: ', ';
     }
 
+    span.subtitle:not(:last-child)::after {
+        content: ' / ';
+    }
+
 }

@@ -10,9 +10,13 @@ created: string;
 
 <mat-card>
     <mat-card-title>
-        <div [contentEditable]="isContentEditable">{{tie?.name}}</div>
+        <div [editable]="isContentEditable" [binding]="tie" [property]="'name'"></div>
     </mat-card-title>
-    <mat-card-subtitle>{{tie?.teacher}} / {{tie?.style}} / {{tie?.learningContext}}</mat-card-subtitle>
+    <mat-card-subtitle>
+        <span class="subtitle" [editable]="isContentEditable" [binding]="tie" [property]="'teacher'"></span>
+        <span class="subtitle" [editable]="isContentEditable" [binding]="tie" [property]="'style'"></span>
+        <span class="subtitle" [editable]="isContentEditable" [binding]="tie" [property]="'learningContext'"></span>
+    </mat-card-subtitle>
     <!--
     <mat-card-subtitle>
         tags: <span class="tag-link" *ngFor="let tag of tie?.tags">{{tag}}</span>
@@ -26,10 +30,10 @@ created: string;
     </mat-card-content>
 
     <mat-card-actions>
-        <button *ngIf="isEditButtonVisible" mat-stroked-button (click)="editClick()">Edit</button>
-        <div *ngIf="isSaveCancelVisible">
+        <button *ngIf="!isContentEditable" mat-stroked-button (click)="editClick()">Edit</button>
+        <div *ngIf="isContentEditable">
             <button mat-stroked-button (click)="cancelClick()">Cancel</button>
-            <button mat-stroked-button (click)="saveClick()">Save</button>
+            <button mat-stroked-button [disabled]="!tie?.isDirty" (click)="saveClick()">Save</button>
         </div>
     </mat-card-actions>
 </mat-card>
