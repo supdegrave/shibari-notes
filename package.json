@@ -1,0 +1,24 @@
+{
+    "name": "shibari-notes",
+    "version": "1.0.0",
+    "description": "## Set up mongoDB hosting",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "server": "cd /Users/stuart/localhost/projects/shibari-notes/server && npm run dev:watch",
+        "client": "cd /Users/stuart/localhost/projects/shibari-notes/client && ng serve",
+        "start": "concurrently \"npm run server\" \"npm run client\"",
+        "fnord": "echo blarg"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/supdegrave/shibari-notes.git"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/supdegrave/shibari-notes/issues"
+    },
+    "homepage": "https://github.com/supdegrave/shibari-notes#readme"
+}
