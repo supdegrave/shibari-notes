@@ -37,6 +37,7 @@ import {
         MatInputModule,
     ],
     exports: [
+        FormsModule,
         MatButtonModule,
         MatCardModule,
         MatFormFieldModule,

@@ -1,8 +1,8 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { environment } from 'src/environments/environment';
 import { Tie } from 'src/app/models/tie';
+import { environment } from 'src/environments/environment';
 
 @Component({
     selector: 'app-tie-view',
@@ -42,6 +42,10 @@ export class TieViewComponent implements OnInit {
 
     onFetchSuccess = (response: ShibariNotes.Tie) => {
         this.tie = new Tie(response);
+
+        if (!this.tie.description) {
+            this.tie.description = `# fnord`;
+        }
     }
 
     onFetchError = (error: HttpErrorResponse) => {
@@ -50,9 +54,6 @@ export class TieViewComponent implements OnInit {
 
     editClick() {
         this.isContentEditable = true;
-
-        // console.warn('TODO: remove - only for development');
-        // this.tie.name = 'fnord';
     }
 
     cancelClick() {

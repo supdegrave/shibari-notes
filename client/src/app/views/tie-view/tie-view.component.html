@@ -24,9 +24,10 @@ created: string;
     -->
     <hr>
     <mat-card-content>
-        <div id="description">
-            {{tie?.description}}
-        </div>
+        <mat-form-field *ngIf="isContentEditable" id="descriptionMarkdownEditable">
+            <textarea matInput [(ngModel)]="tie.description"></textarea>
+        </mat-form-field>
+        <div id="descriptionMarkdownDisplay" [innerHTML]="tie?.description | markdown"></div>
     </mat-card-content>
 
     <mat-card-actions>
