@@ -13,6 +13,7 @@ export class TieViewComponent implements OnInit {
 
     tie: Tie;
     isNew: boolean;
+    tieUri: string;
 
     // template interaction properties
     isContentEditable: boolean;
@@ -24,32 +25,27 @@ export class TieViewComponent implements OnInit {
         this.isContentEditable = false;
     }
 
+    onHttpError = (error: HttpErrorResponse) => {
+        console.warn(`get: /api/ties\nerror:`, error);
+    }
+
     ngOnInit() {
         const tieId: string = this.route.snapshot.paramMap.get('id');
 
         this.isNew = tieId === 'new';
+        this.tieUri = `${environment.apiServer}/api/ties/${tieId}`;
 
         if (!this.isNew) {
-            this.http.get(`${environment.apiServer}/api/ties/${tieId}`)
+            this.http.get(this.tieUri)
                 .subscribe(
-                    this.onFetchSuccess,
-                    this.onFetchError
+                    (response: ShibariNotes.Tie) => {
+                        this.tie = new Tie(response);
+                    },
+                    this.onHttpError
                 );
         } else {
             this.isContentEditable = true;
         }
-    }
-
-    onFetchSuccess = (response: ShibariNotes.Tie) => {
-        this.tie = new Tie(response);
-
-        if (!this.tie.description) {
-            this.tie.description = `# fnord`;
-        }
-    }
-
-    onFetchError = (error: HttpErrorResponse) => {
-        console.warn(`get: /api/ties\nerror:`, error);
     }
 
     editClick() {
@@ -64,7 +60,14 @@ export class TieViewComponent implements OnInit {
 
     saveClick() {
         this.isContentEditable = false;
-        console.warn('TODO: save changes');
+
+        this.http.put(this.tieUri, this.tie)
+            .subscribe(
+                (response: ShibariNotes.Tie) => {
+                    console.log(`saved ${response.name}`);
+                },
+                this.onHttpError
+            );
     }
 
     updateTie(property: string, event): void {
