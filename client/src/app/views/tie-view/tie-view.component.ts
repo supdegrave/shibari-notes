@@ -26,7 +26,7 @@ export class TieViewComponent implements OnInit {
     }
 
     onHttpError = (error: HttpErrorResponse) => {
-        console.warn(`get: /api/ties\nerror:`, error);
+        console.error(error);
     }
 
     ngOnInit() {
