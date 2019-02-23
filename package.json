@@ -5,8 +5,8 @@
     "main": "index.js",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
-        "server": "cd /Users/stuart/localhost/projects/shibari-notes/server && npm run dev:watch",
-        "client": "cd /Users/stuart/localhost/projects/shibari-notes/client && ng serve",
+        "server": "cd ./server && npm run dev:watch",
+        "client": "cd ./client && ng serve",
         "start": "concurrently --prefix pid \"npm run server\" \"npm run client\""
     },
     "repository": {

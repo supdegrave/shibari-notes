@@ -7,7 +7,7 @@ import { environment } from '../../../environments/environment';
 @Component({
     selector: 'app-ties-view',
     templateUrl: './ties-view.component.html',
-    styleUrls: ['./ties-view.component.css']
+    styleUrls: ['./ties-view.component.scss']
 })
 export class TiesViewComponent implements OnInit {
 
