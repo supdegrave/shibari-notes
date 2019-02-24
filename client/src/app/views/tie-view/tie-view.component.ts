@@ -1,6 +1,6 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Tie } from 'src/app/models/tie';
 import { environment } from 'src/environments/environment';
 
@@ -20,6 +20,7 @@ export class TieViewComponent implements OnInit {
 
     constructor(
         private http: HttpClient,
+        private router: Router,
         private route: ActivatedRoute
     ) {
         this.isContentEditable = false;
@@ -46,6 +47,12 @@ export class TieViewComponent implements OnInit {
         } else {
             this.isContentEditable = true;
         }
+    }
+
+    navigateToTiesFilteredBy(property: string): void {
+        const filterBy: any = {};
+        filterBy[property] = this.tie[property];
+        this.router.navigate(['/ties', filterBy]);
     }
 
     editClick() {

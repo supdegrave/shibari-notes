@@ -10,7 +10,7 @@ created: string;
 
 <mat-card>
     <mat-card-title>
-        <div [editable]="isContentEditable" [binding]="tie" [property]="'name'"></div>
+        <div (click)="navigateToTiesFilteredBy('name')" [editable]="isContentEditable" [binding]="tie" [property]="'name'"></div>
     </mat-card-title>
     <mat-card-subtitle>
         <span class="subtitle" [editable]="isContentEditable" [binding]="tie" [property]="'teacher'"></span>
