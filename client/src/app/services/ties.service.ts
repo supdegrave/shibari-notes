@@ -54,7 +54,11 @@ export class TiesService {
         return this._filterList;
     }
 
+    // find a single tie by ID
+    getTieById(id: string): Tie {
+        return this._tiesList.find(tie => tie.id === id);
+    }
+
     // get myTies() - ties entered by authenticated user (maybe this should be in a UserService instead?)
-    // getTie(id: string) - find a single tie by ID
     // CRUD operator methods
 }

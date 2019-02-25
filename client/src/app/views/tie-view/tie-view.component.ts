@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Tie } from 'src/app/models/tie';
 import { environment } from 'src/environments/environment';
+import { TiesService } from 'src/app/services/ties.service';
 
 @Component({
     selector: 'app-tie-view',
@@ -21,7 +22,8 @@ export class TieViewComponent implements OnInit {
     constructor(
         private http: HttpClient,
         private router: Router,
-        private route: ActivatedRoute
+        private route: ActivatedRoute,
+        private tiesService: TiesService
     ) {
         this.isContentEditable = false;
     }
@@ -37,14 +39,9 @@ export class TieViewComponent implements OnInit {
         this.tieUri = `${environment.apiServer}/api/ties/${tieId}`;
 
         if (!this.isNew) {
-            this.http.get(this.tieUri)
-                .subscribe(
-                    (response: ShibariNotes.Tie) => {
-                        this.tie = new Tie(response);
-                    },
-                    this.onHttpError
-                );
+            this.tie = this.tiesService.getTieById(tieId);
         } else {
+            // TODO: initialize tie
             this.isContentEditable = true;
         }
     }
