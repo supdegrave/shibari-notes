@@ -1,9 +1,6 @@
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Tie } from 'src/app/models/tie';
-
-import { environment } from '../../../environments/environment';
+import { TiesService } from 'src/app/services/ties.service';
 
 @Component({
     selector: 'app-ties-view',
@@ -12,31 +9,19 @@ import { environment } from '../../../environments/environment';
 })
 export class TiesViewComponent implements OnInit {
 
-    tiesList: Tie[];
-
     constructor(
-        private http: HttpClient,
-        private route: ActivatedRoute
+        private route: ActivatedRoute,
+        public tiesService: TiesService
     ) { }
 
     ngOnInit() {
-        // const routeSnapshot = this.route.snapshot;
-        // console.log(routeSnapshot.paramMap);
+        const paramMap = this.route.snapshot.paramMap;
 
-        this.http.get(`${environment.apiServer}/api/ties`)
-            .subscribe(
-                this.onFetchSuccess,
-                this.onFetchError
-            );
-    }
-
-    onFetchSuccess = (response: ShibariNotes.Tie[]) => {
-        this.tiesList = response.map((tie: ShibariNotes.Tie) => new Tie(tie));
-        console.log(this.tiesList);
-    }
-
-    onFetchError = (error: HttpErrorResponse): void => {
-        console.warn(`get: /api/ties\nerror:`, error);
+        if (paramMap.keys.length === 1) {
+            const filterKey = paramMap.keys[0];
+            const filterValue = paramMap.get(filterKey);
+            this.tiesService.addFilter(filterKey, filterValue);
+        }
     }
 
 }

@@ -1,5 +1,12 @@
-<ul>
-    <li *ngFor="let tie of tiesList">
+<ul id="filters" *ngIf="tiesService.activeFilters.length">
+    <li *ngFor="let filter of tiesService.activeFilters">
+        {{filter.propertyName}}: {{filter.value}}
+        <button (click)="tiesService.removeFilter(filter)">x</button>
+    </li>
+</ul>
+
+<ul id="ties">
+    <li *ngFor="let tie of tiesService.filteredTies">
         <a [routerLink]="['.', tie.id]">{{tie.name}}</a>
     </li>
 </ul>

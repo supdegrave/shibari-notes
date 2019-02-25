@@ -8,6 +8,7 @@ import { AppComponent } from './app.component';
 import { EditableDirective } from './directives/editable.directive';
 import { MaterialModule } from './material/material.module';
 import { RoutingModule } from './routing/routing.module';
+import { ServicesModule } from './services/services.module';
 import { HomeViewComponent } from './views/home-view/home-view.component';
 import { LoginViewComponent } from './views/login-view/login-view.component';
 import { TieViewComponent } from './views/tie-view/tie-view.component';
@@ -24,11 +25,14 @@ import { TiesViewComponent } from './views/ties-view/ties-view.component';
     ],
     imports: [
         BrowserModule,
-        RoutingModule,
         HttpClientModule,
         BrowserAnimationsModule,
-        MaterialModule,
         MarkdownModule.forRoot(),
+
+        // app-specific modules
+        MaterialModule,
+        RoutingModule,
+        ServicesModule
     ],
     providers: [],
     bootstrap: [
