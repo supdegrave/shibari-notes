@@ -1,5 +1,5 @@
 <ul>
     <li *ngFor="let tie of tiesList">
-        <a href="ties/{{tie.id}}">{{tie.name}}</a>
+        <a [routerLink]="['.', tie.id]">{{tie.name}}</a>
     </li>
 </ul>
