@@ -1,5 +1,4 @@
 ## DEV STARTUP
-* 
 
 ## LINKS
 * [Trello](https://trello.com/b/XxqSMwru/shibari-notes)
@@ -7,4 +6,5 @@
 
 ## TODO
 * investigate [Angular Model extension](https://tomastrajan.github.io/angular-model-pattern-example#/about)
+* https://cloud.google.com/vision/docs/handwriting
 
