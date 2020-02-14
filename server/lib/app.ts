@@ -30,8 +30,16 @@ class App {
         const options = { useNewUrlParser: true };
 
         mongoose.connect(mongoUrl, options)
-            .then((result: typeof mongoose) => console.log(`connected to mongodb: `, result.connection['host']))
-            .catch((reason) => console.warn('unable to connect to mongodb', reason));
+            .then(this.mongoose_onConnectSuccess)
+            .catch(this.mongoose_onConnectError);
+    }
+
+    private mongoose_onConnectSuccess(result: typeof mongoose) {
+        console.log(`connected to mongodb: `, result.connection['host']);
+    }
+
+    private mongoose_onConnectError(reason: any) {
+        console.warn('unable to connect to mongodb', reason);
     }
 
 }
