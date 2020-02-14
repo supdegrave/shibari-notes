@@ -1,7 +1,7 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
-import { tap } from 'rxjs/operators';
+import * as localforage from 'localforage';
 
 import { Tie } from '../models/tie';
 
@@ -13,22 +13,45 @@ export class TiesService {
     private _tiesList: Tie[];
     private _filterList: App.TiesFilter[] = [];
 
-    constructor(private http: HttpClient) { }
-
-    initialize() {
-        if (!this._tiesList) {
-            this.http.get(`${environment.apiServer}/api/ties`)
-                // log ties fetched from server
-                // .pipe(tap(console.log))
-                .subscribe(
-                    (response: ShibariNotes.Tie[]) => this._tiesList = response.map((tie: ShibariNotes.Tie) => new Tie(tie)),
-                    (error: HttpErrorResponse): void => console.warn(`get: /api/ties\nerror:`, error)
-                );
+    private mapTiesJsonToClass(tiesJson: ShibariNotes.Tie[]): Tie[] {
+        if (tiesJson) {
+            return tiesJson.map((tie: ShibariNotes.Tie) => new Tie(tie));
         }
     }
 
+    constructor(private http: HttpClient) {
+        localforage.getItem('tiesList')
+            .then((tiesJson: ShibariNotes.Tie[]) => {
+                this._tiesList = this.mapTiesJsonToClass(tiesJson);
+                console.log('read', this._tiesList);
+            });
+    }
+
+    initialize() {
+        const next = (response: ShibariNotes.Tie[]) => {
+            const tiesJson = response;
+            this._tiesList = this.mapTiesJsonToClass(tiesJson);
+            localforage.setItem('tiesList', tiesJson);
+            console.log('write', this._tiesList);
+        };
+
+        const error = (err: HttpErrorResponse): void => {
+            console.warn(`get: /api/ties\n => error:`, err);
+        };
+
+        const complete = () => { /* no-op */ };
+
+        localforage.getItem('tiesList')
+            .then((tiesJson: ShibariNotes.Tie[]) => {
+                if (!tiesJson) {
+                    this.http.get(`${environment.apiServer}/api/ties`)
+                        .subscribe({ next, error, complete });
+                }
+            });
+    }
+
     addFilter(propertyName: string, value: string): void {
-        this._filterList.push({propertyName, value});
+        this._filterList.push({ propertyName, value });
     }
 
     removeFilter(filter: App.TiesFilter): void {
