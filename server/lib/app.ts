@@ -4,7 +4,6 @@ import * as express from 'express';
 import * as mongoose from 'mongoose';
 
 import { Routes } from './routes';
-import { mongoUrl } from '../mongo-url';
 
 class App {
 
@@ -27,9 +26,12 @@ class App {
     }
 
     private mongoSetup(): void {
-        mongoose.connect(mongoUrl)
-            .then((result: typeof mongoose) => console.log(`connected to mongodb atlas: `, result.connection['host']))
-            .catch((reason) => console.warn('catch', reason));
+        const mongoUrl: string = process.env.MONGODB_URI || 'mongodb://localhost:27017/shibari-notes]';
+        const options = { useNewUrlParser: true };
+
+        mongoose.connect(mongoUrl, options)
+            .then((result: typeof mongoose) => console.log(`connected to mongodb: `, result.connection['host']))
+            .catch((reason) => console.warn('unable to connect to mongodb', reason));
     }
 
 }
