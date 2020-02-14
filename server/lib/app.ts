@@ -2,8 +2,9 @@ import * as bodyParser from 'body-parser';
 import * as cors from 'cors';
 import * as express from 'express';
 import * as mongoose from 'mongoose';
-
+import { serverEnvironment } from './environment';
 import { Routes } from './routes';
+
 
 class App {
 
@@ -26,7 +27,7 @@ class App {
     }
 
     private mongoSetup(): void {
-        const mongoUrl: string = process.env.MONGODB_URI || 'mongodb://localhost:27017/shibari-notes]';
+        const mongoUrl: string = process.env.MONGODB_URI || serverEnvironment.localDatabase;
         const options = { useNewUrlParser: true };
 
         mongoose.connect(mongoUrl, options)
