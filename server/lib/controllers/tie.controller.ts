@@ -7,49 +7,55 @@ const Tie = mongoose.model('Tie', TieModel);
 
 export class TieController {
     post(request: Request, response: Response) {
-        new Tie(request.body).save((err, tie) => {
-            if (err) {
-                response.send(err);
-            }
-            response.json(tie);
-        });
+        new Tie(request.body).save()
+            .then(
+                (tie: mongoose.Document) => response.json(tie),
+                err => response.send(err)
+            );
     }
 
     get(request: Request, response: Response) {
         const tieId = request.params.id;
-        const getHandler = (err, tie) => {
-            if (err) {
-                response.send(err);
-            }
-            response.json(tie);
-        }
 
         if (tieId) {
-            Tie.findById(tieId, getHandler);
+            Tie.findById(tieId)
+                .then(
+                    (tie: mongoose.Document) => response.json(tie),
+                    err => response.send(err)
+                );
         } else {
-            Tie.find({}, getHandler);
+            Tie.find({})
+                .then(
+                    (ties: mongoose.Document[]) => response.json(ties),
+                    err => response.send(err)
+                );
         }
     }
 
     put(request: Request, response: Response) {
-        Tie.findOneAndUpdate(
-            { _id: request.params.id },
-            request.body,
-            { new: true },
-            (err, tie) => {
-                if (err) {
-                    response.send(err);
-                }
-                response.json(tie);
-            });
+        const tieId = request.params.id;
+        let query;
+
+        if (tieId === 'new') {
+            query = Tie.create(request.body);
+        } else {
+            const conditions = { _id: tieId };
+            const options = { new: true };
+            query = Tie.findOneAndUpdate(conditions, request.body, options);
+        }
+
+        query
+            .then(
+                (tie: mongoose.Document) => response.json(tie),
+                err => response.send(err)
+            );
     }
 
     delete(request: Request, response: Response) {
-        Tie.deleteOne({ _id: request.params.id }, (err) => {
-            if (err) {
-                response.send(err);
-            }
-            response.json({ message: 'Tie deleted' });
-        });
+        Tie.deleteOne({ _id: request.params.id })
+            .then(
+                _ => response.json({ message: 'Tie deleted' }),
+                err => response.send(err)
+            );
     }
 }

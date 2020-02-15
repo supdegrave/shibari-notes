@@ -21,6 +21,8 @@ export class Routes {
             // get a specific tie by id
             .get(this.tieController.get)
             // update a specific tie
+            .post(this.tieController.post)
+            // update a specific tie
             .put(this.tieController.put)
             // /lib/routes/crmRoutes.ts
             .delete(this.tieController.delete);
