@@ -37,6 +37,8 @@ export class TieController {
         let query;
 
         if (tieId === 'new') {
+            // TODO: should this throw?
+            console.log('creating new via `put` - shouldn\'t happen! ');
             query = Tie.create(request.body);
         } else {
             const conditions = { _id: tieId };
