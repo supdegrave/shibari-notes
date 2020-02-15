@@ -1,4 +1,5 @@
 <!--
+### Tie properties: ###
 name: string;
 description: string;
 teacher: String;
@@ -8,21 +9,32 @@ tags: string[];
 created: string;
 -->
 
+<!--
+<mat-card-title>	  Card title
+<mat-card-subtitle>	  Card subtitle
+<mat-card-content>	  Primary card content. Intended for blocks of text
+<img mat-card-image>  Card image. Stretches the image to the container width
+<mat-card-actions>	  Container for buttons at the bottom of the card
+<mat-card-footer>	  Section anchored to the bottom of the card
+-->
+
 <mat-card>
     <mat-card-title>
-        <input class="tie-name" (click)="navigateToTiesFilteredBy('name')" placeholder="Tie name" [disabled]="!isContentEditable" [(ngModel)]="tie.name" />
+        <input id="tie-name" (click)="navigateToTiesFilteredBy('name')" placeholder="Tie name" [disabled]="!isContentEditable" [(ngModel)]="tie.name" />
     </mat-card-title>
-    <mat-card-subtitle>
-        <input class="tie-teacher" placeholder="Teacher" [disabled]="!isContentEditable" [(ngModel)]="tie.teacher" />
-        <input class="tie-style" placeholder="Style" [disabled]="!isContentEditable" [(ngModel)]="tie.style" />
-        <input class="tie-learningContext" placeholder="Where learned" [disabled]="!isContentEditable" [(ngModel)]="tie.learningContext" />
+
+    <mat-card-subtitle id="tie-metadata">
+        <input id="tie-teacher" placeholder="Teacher" [disabled]="!isContentEditable" [(ngModel)]="tie.teacher" [size]="tie.teacher?.split('').length || 25" />
+        <input id="tie-style" placeholder="Style" [disabled]="!isContentEditable" [(ngModel)]="tie.style" [size]="tie.style?.split('').length || 25" />
+        <input id="tie-learningContext" placeholder="Where learned" [disabled]="!isContentEditable" [(ngModel)]="tie.learningContext" [size]="tie.learningContext?.split('').length || 25" />
     </mat-card-subtitle>
-    <!--
-    <mat-card-subtitle>
-        tags: <span class="tag-link" *ngFor="let tag of tie?.tags">{{tag}}</span>
+
+    <mat-card-subtitle *ngIf="tie?.tags?.length">
+        <div id="tie-tags">
+            tags: <span class="tag-link" *ngFor="let tag of tie?.tags">{{tag}}</span>
+        </div>
     </mat-card-subtitle>
-    -->
-    <hr>
+
     <mat-card-content>
         <textarea *ngIf="isContentEditable" placeholder="Edit new tie information (Markdown allowed)" id="descriptionMarkdownEditable" [(ngModel)]="tie.description"></textarea>
         <div id="descriptionMarkdownDisplay" [innerHTML]="tie?.description | markdown"></div>
@@ -36,12 +48,3 @@ created: string;
         </div>
     </mat-card-actions>
 </mat-card>
-
-<!--
-<mat-card-title>	  Card title
-<mat-card-subtitle>	  Card subtitle
-<mat-card-content>	  Primary card content. Intended for blocks of text
-<img mat-card-image>  Card image. Stretches the image to the container width
-<mat-card-actions>	  Container for buttons at the bottom of the card
-<mat-card-footer>	  Section anchored to the bottom of the card
- -->

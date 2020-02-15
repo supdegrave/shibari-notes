@@ -1,3 +1,8 @@
+
+div, span, input {
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
+
 .mat-card {
     margin: 10px;
 
@@ -18,7 +23,14 @@
         }
     }
 
-    .mat-card-actions {
+    input {
+        color: black;
+    }
+    input:disabled {
+        border: none;
+    }
+
+    mat-card-actions {
         text-align: right;
 
         button {
@@ -30,8 +42,17 @@
         content: ', ';
     }
 
-    span.subtitle:not(:last-child)::after {
-        content: ' / ';
+    #tie-metadata input:not(:disabled) {
+        margin-right: 1em;
     }
 
+    #tie-name {
+        font-size: x-large;
+    }
+    // #tie-teacher {}
+    // #tie-style {}
+    // #tie-learningContext {}
+    // #tie-tags {}
+    // #descriptionMarkdownEditable {}
+    // #descriptionMarkdownDisplay {}
 }
