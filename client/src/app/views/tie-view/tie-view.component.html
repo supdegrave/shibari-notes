@@ -18,7 +18,7 @@ created: string;
 <mat-card-footer>	  Section anchored to the bottom of the card
 -->
 
-<mat-card>
+<mat-card *ngIf="tie">
     <mat-card-title>
         <input id="tie-name" (click)="navigateToTiesFilteredBy('name')" placeholder="Tie name" [disabled]="!isContentEditable" [(ngModel)]="tie.name" />
     </mat-card-title>

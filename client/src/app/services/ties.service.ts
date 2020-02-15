@@ -16,6 +16,9 @@ export class TiesService {
     private _filterList: App.TiesFilter[] = [];
     private _shouldWrite: boolean;
 
+    getLocalTiesList$: Observable<ShibariNotes.Tie[]> = from(localforage.getItem<ShibariNotes.Tie[]>('tiesList'));
+    fetchTiesList$: Observable<any> = this.http.get(`${environment.apiServer}/api/ties`);
+
     private getTiesObserver: Observer<ShibariNotes.Tie[]> = {
         next: (response: ShibariNotes.Tie[]) => {
             const tiesJson = response;
@@ -37,20 +40,18 @@ export class TiesService {
         }
     }
 
-    constructor(private http: HttpClient) { }
+    constructor(private http: HttpClient) {
+        this.getLocalTiesList$
+            .subscribe(this.getTiesObserver);
+    }
+
+    get isInitialized(): boolean {
+        return !!this._tiesList;
+    }
 
     initialize() {
-        console.log('TiesService.initialize()');
-        const getLocalTiesList$: Observable<ShibariNotes.Tie[]> = from(localforage.getItem<ShibariNotes.Tie[]>('tiesList'));
-        const fetchTiesList$: Observable<any> = this.http.get(`${environment.apiServer}/api/ties`);
-
-        concat(
-            getLocalTiesList$.pipe(
-                tap(this.getTiesObserver)
-            ),
-            fetchTiesList$.pipe(
-                tap(() => this._shouldWrite = true)
-            )
+        this.fetchTiesList$.pipe(
+            tap(() => this._shouldWrite = true)
         )
             .subscribe(this.getTiesObserver);
     }

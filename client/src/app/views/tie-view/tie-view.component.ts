@@ -39,7 +39,16 @@ export class TieViewComponent implements OnInit {
         this.tieUri = `${environment.apiServer}/api/ties/${tieId}`;
 
         if (!this.isNew) {
-            this.tie = this.tiesService.getTieById(tieId);
+            const initInterval = setInterval(
+                () => {
+                    if (this.tiesService.isInitialized) {
+                        this.tie = this.tiesService.getTieById(tieId);
+                        clearInterval(initInterval);
+                    } else {
+                        console.log('tick ');
+                    }
+                }, 10
+            );
         } else {
             this.tie = new Tie();
             this.isContentEditable = true;
