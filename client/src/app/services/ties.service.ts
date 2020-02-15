@@ -1,9 +1,11 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { environment } from 'src/environments/environment';
 import * as localforage from 'localforage';
-
+import { concat, from, Observable, Observer } from 'rxjs';
+import { tap } from 'rxjs/operators';
+import { environment } from 'src/environments/environment';
 import { Tie } from '../models/tie';
+
 
 @Injectable({
     providedIn: 'root'
@@ -12,6 +14,22 @@ export class TiesService {
 
     private _tiesList: Tie[];
     private _filterList: App.TiesFilter[] = [];
+    private _shouldWrite: boolean;
+
+    private getTiesObserver: Observer<ShibariNotes.Tie[]> = {
+        next: (response: ShibariNotes.Tie[]) => {
+            const tiesJson = response;
+            this._tiesList = this.mapTiesJsonToClass(tiesJson);
+
+            if (this._shouldWrite) {
+                localforage.setItem('tiesList', tiesJson);
+            }
+        },
+        error: (err: HttpErrorResponse): void => {
+            console.warn(`get: /api/ties\n => error:`, err);
+        },
+        complete: () => { /* no-op */}
+    };
 
     private mapTiesJsonToClass(tiesJson: ShibariNotes.Tie[]): Tie[] {
         if (tiesJson) {
@@ -19,35 +37,22 @@ export class TiesService {
         }
     }
 
-    constructor(private http: HttpClient) {
-        localforage.getItem('tiesList')
-            .then((tiesJson: ShibariNotes.Tie[]) => {
-                this._tiesList = this.mapTiesJsonToClass(tiesJson);
-                console.log('read', this._tiesList);
-            });
-    }
+    constructor(private http: HttpClient) { }
 
     initialize() {
-        const next = (response: ShibariNotes.Tie[]) => {
-            const tiesJson = response;
-            this._tiesList = this.mapTiesJsonToClass(tiesJson);
-            localforage.setItem('tiesList', tiesJson);
-            console.log('write', this._tiesList);
-        };
+        console.log('TiesService.initialize()');
+        const getLocalTiesList$: Observable<ShibariNotes.Tie[]> = from(localforage.getItem<ShibariNotes.Tie[]>('tiesList'));
+        const fetchTiesList$: Observable<any> = this.http.get(`${environment.apiServer}/api/ties`);
 
-        const error = (err: HttpErrorResponse): void => {
-            console.warn(`get: /api/ties\n => error:`, err);
-        };
-
-        const complete = () => { /* no-op */ };
-
-        localforage.getItem('tiesList')
-            .then((tiesJson: ShibariNotes.Tie[]) => {
-                if (!tiesJson) {
-                    this.http.get(`${environment.apiServer}/api/ties`)
-                        .subscribe({ next, error, complete });
-                }
-            });
+        concat(
+            getLocalTiesList$.pipe(
+                tap(this.getTiesObserver)
+            ),
+            fetchTiesList$.pipe(
+                tap(() => this._shouldWrite = true)
+            )
+        )
+            .subscribe(this.getTiesObserver);
     }
 
     addFilter(propertyName: string, value: string): void {
