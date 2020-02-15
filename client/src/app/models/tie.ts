@@ -1,6 +1,17 @@
 export class Tie implements ShibariNotes.Tie {
 
-    private _tie: ShibariNotes.Tie;
+    private newTie: ShibariNotes.Tie = {
+        _id: undefined,
+        created: undefined,
+        name: '',
+        description: '',
+        teacher: '',
+        style: '',
+        learningContext: '',
+        tags: [],
+    };
+
+    _tie: ShibariNotes.Tie;
 
     _id: string;
     name: string;
@@ -11,7 +22,8 @@ export class Tie implements ShibariNotes.Tie {
     tags: string[];
     created: string;
 
-    constructor(tie: ShibariNotes.Tie) {
+    constructor(tie?: ShibariNotes.Tie) {
+        tie = tie || this.newTie;
         // store incoming object, for isDirty comparison / discard
         this._tie = tie;
         Object.assign(this, tie);
