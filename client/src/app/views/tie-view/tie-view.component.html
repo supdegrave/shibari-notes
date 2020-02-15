@@ -10,12 +10,12 @@ created: string;
 
 <mat-card>
     <mat-card-title>
-        <div (click)="navigateToTiesFilteredBy('name')" [editable]="isContentEditable" [binding]="tie" [property]="'name'"></div>
+        <input class="tie-name" (click)="navigateToTiesFilteredBy('name')" placeholder="Tie name" [disabled]="!isContentEditable" [(ngModel)]="tie.name" />
     </mat-card-title>
     <mat-card-subtitle>
-        <span class="subtitle" [editable]="isContentEditable" [binding]="tie" [property]="'teacher'"></span>
-        <span class="subtitle" [editable]="isContentEditable" [binding]="tie" [property]="'style'"></span>
-        <span class="subtitle" [editable]="isContentEditable" [binding]="tie" [property]="'learningContext'"></span>
+        <input class="tie-teacher" placeholder="Teacher" [disabled]="!isContentEditable" [(ngModel)]="tie.teacher" />
+        <input class="tie-style" placeholder="Style" [disabled]="!isContentEditable" [(ngModel)]="tie.style" />
+        <input class="tie-learningContext" placeholder="Where learned" [disabled]="!isContentEditable" [(ngModel)]="tie.learningContext" />
     </mat-card-subtitle>
     <!--
     <mat-card-subtitle>
@@ -24,7 +24,7 @@ created: string;
     -->
     <hr>
     <mat-card-content>
-        <textarea *ngIf="isContentEditable" id="descriptionMarkdownEditable" [(ngModel)]="tie.description"></textarea>
+        <textarea *ngIf="isContentEditable" placeholder="Edit new tie information (Markdown allowed)" id="descriptionMarkdownEditable" [(ngModel)]="tie.description"></textarea>
         <div id="descriptionMarkdownDisplay" [innerHTML]="tie?.description | markdown"></div>
     </mat-card-content>
 

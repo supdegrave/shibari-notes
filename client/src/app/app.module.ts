@@ -5,7 +5,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MarkdownModule } from 'ngx-markdown';
 
 import { AppComponent } from './app.component';
-import { EditableDirective } from './directives/editable.directive';
 import { MaterialModule } from './material/material.module';
 import { RoutingModule } from './routing/routing.module';
 import { ServicesModule } from './services/services.module';
@@ -21,7 +20,6 @@ import { TiesViewComponent } from './views/ties-view/ties-view.component';
         HomeViewComponent,
         TieViewComponent,
         TiesViewComponent,
-        EditableDirective
     ],
     imports: [
         BrowserModule,

@@ -41,15 +41,17 @@ export class TieViewComponent implements OnInit {
         if (!this.isNew) {
             this.tie = this.tiesService.getTieById(tieId);
         } else {
-            // TODO: initialize tie
+            this.tie = new Tie();
             this.isContentEditable = true;
         }
     }
 
     navigateToTiesFilteredBy(property: string): void {
-        const filterBy: any = {};
-        filterBy[property] = this.tie[property];
-        this.router.navigate(['/ties', filterBy]);
+        if (!this.isContentEditable) {
+            const filterBy: any = {};
+            filterBy[property] = this.tie[property];
+            this.router.navigate(['/ties', filterBy]);
+        }
     }
 
     editClick() {
@@ -65,13 +67,16 @@ export class TieViewComponent implements OnInit {
     saveClick() {
         this.isContentEditable = false;
 
-        this.http.put(this.tieUri, this.tie)
-            .subscribe(
-                (response: ShibariNotes.Tie) => {
-                    console.log(`saved ${response.name}`);
-                },
-                this.onHttpError
-            );
+        const httpCall = (this.isNew)
+            ? this.http.post(this.tieUri, this.tie)
+            : this.http.put(this.tieUri, this.tie);
+
+        httpCall.subscribe(
+            (response: ShibariNotes.Tie) => {
+                console.log(`saved ${response.name}`);
+            },
+            this.onHttpError
+        );
     }
 
     updateTie(property: string, event): void {
