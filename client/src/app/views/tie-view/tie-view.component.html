@@ -21,9 +21,9 @@ created: string;
 <mat-card *ngIf="tie">
     <mat-card-title>
         <input id="tie-name" (click)="navigateToTiesFilteredBy('name')" placeholder="Tie name" [disabled]="!isContentEditable" [(ngModel)]="tie.name" />
-        <span id="action-buttons">
-            <mat-icon title="Edit" aria-label="Edit">edit</mat-icon>
-            <mat-icon title="Delete" aria-label="Delete">delete_outline</mat-icon>
+        <span id="action-buttons" *ngIf="!isNew && !isContentEditable">
+            <mat-icon title="Delete" aria-label="Delete" (click)="deleteClick()">delete_outline</mat-icon>
+            <mat-icon title="Edit" aria-label="Edit" (click)="editClick()">edit</mat-icon>
         </span>
     </mat-card-title>
 

@@ -67,6 +67,11 @@ export class TieViewComponent implements OnInit {
         this.isContentEditable = true;
     }
 
+    deleteClick() {
+        console.log(`deleteClick:\n  TODO: delete from local store, pop toast with 'Undo' option\n  TODO: if toast closes without 'Undo' click, http delete`);
+        // this.http.delete(this.tieUri);
+    }
+
     cancelClick() {
         this.isContentEditable = false;
         this.tie.discardChanges();
