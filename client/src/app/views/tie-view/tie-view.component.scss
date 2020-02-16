@@ -6,6 +6,30 @@ div, span, input {
 .mat-card {
     margin: 10px;
 
+    mat-card-title {
+        display: flex;
+
+        input {
+            flex-grow: 1;
+        }
+
+        #action-buttons {
+            color: lightgray;
+            cursor: pointer;
+
+            .mat-icon {
+                margin-left: 5px;
+                border: 1px solid white;
+            }
+            .mat-icon:hover {
+                color: #222222;
+                border: 1px solid #222222;
+                border-radius: 3px;
+            }
+        }
+
+    }
+
     mat-card-content {
         display: grid;
         grid-template-columns: 1fr 1fr;

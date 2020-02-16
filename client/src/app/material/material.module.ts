@@ -15,6 +15,7 @@ import {
     // MatGridListModule,
     // MatIconModule,
     MatInputModule,
+    MatIconModule,
     // MatListModule,
     // MatNativeDateModule,
     // MatProgressBarModule,
@@ -35,6 +36,7 @@ import {
         MatCardModule,
         MatFormFieldModule,
         MatInputModule,
+        MatIconModule,
     ],
     exports: [
         FormsModule,
@@ -42,6 +44,7 @@ import {
         MatCardModule,
         MatFormFieldModule,
         MatInputModule,
+        MatIconModule,
     ]
 })
 export class MaterialModule { }

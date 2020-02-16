@@ -21,6 +21,10 @@ created: string;
 <mat-card *ngIf="tie">
     <mat-card-title>
         <input id="tie-name" (click)="navigateToTiesFilteredBy('name')" placeholder="Tie name" [disabled]="!isContentEditable" [(ngModel)]="tie.name" />
+        <span id="action-buttons">
+            <mat-icon title="Edit" aria-label="Edit">edit</mat-icon>
+            <mat-icon title="Delete" aria-label="Delete">delete_outline</mat-icon>
+        </span>
     </mat-card-title>
 
     <mat-card-subtitle id="tie-metadata">
@@ -40,11 +44,8 @@ created: string;
         <div id="descriptionMarkdownDisplay" [innerHTML]="tie?.description | markdown"></div>
     </mat-card-content>
 
-    <mat-card-actions>
-        <button *ngIf="!isContentEditable" mat-stroked-button (click)="editClick()">Edit</button>
-        <div *ngIf="isContentEditable">
-            <button mat-stroked-button (click)="cancelClick()">Cancel</button>
-            <button mat-stroked-button [disabled]="!tie?.isDirty" (click)="saveClick()">Save</button>
-        </div>
+    <mat-card-actions *ngIf="isContentEditable">
+        <button mat-stroked-button (click)="cancelClick()">Cancel</button>
+        <button mat-stroked-button [disabled]="!tie?.isDirty" (click)="saveClick()">Save</button>
     </mat-card-actions>
 </mat-card>
