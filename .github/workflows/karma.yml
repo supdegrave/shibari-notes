@@ -1,17 +1,25 @@
-name: CI
+name: Karma
 
 on: [push]
 
 jobs:
   build:
     runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v2
-    - uses: actions/setup-node@v1
-#       with:
-#         node-version: '10.x'
+#     steps:
+#     - uses: actions/checkout@v2
+#     - uses: actions/setup-node@v1
+# #       with:
+# #         node-version: '10.x'
       
-    - name: Run Client Karma tests
-      run: |
-        npm ci
-        npm run test:client:headless
+#     - name: Run Client Karma tests
+#       run: |
+#         npm ci
+#         npm run test:client:headless
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: '10.x'
+      - run: npm install
+      - run: npm run test:client:headless
