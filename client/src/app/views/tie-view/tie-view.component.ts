@@ -42,8 +42,6 @@ export class TieViewComponent implements OnInit {
                 if (this.tiesService.isInitialized) {
                     this.tie = this.tiesService.getTieById(tieId);
                     clearInterval(initInterval);
-                } else {
-                    console.log('tick ');
                 }
             }, 10);
         } else {
