@@ -6,6 +6,7 @@
     "scripts": {
         "test:server": "echo \"no server tests defined yet\"",
         "test:client": "cd client && ng test",
+        "test:client:headless": "cd client && ng test --watch=false --browsers=ChromeHeadlessCustom",
         "start": "concurrently --prefix pid \"npm run start:mongodb\" \"npm run start:server\" \"npm run start:client\"",
         "start:server": "cd ./server && npm run dev:watch",
         "start:client": "cd ./client && ng serve",
@@ -25,6 +26,7 @@
     },
     "homepage": "https://github.com/supdegrave/shibari-notes#readme",
     "devDependencies": {
-        "prettier": "1.19.1"
+        "prettier": "1.19.1",
+        "puppeteer": "^2.1.1"
     }
 }
