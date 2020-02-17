@@ -10,5 +10,4 @@ jobs:
       - uses: actions/setup-node@v1
         with:
           node-version: '10.x'
-      - run: npm install
-      - run: cd client && npm run test:headless
+      - run: cd client && npm install && npm run test:headless
