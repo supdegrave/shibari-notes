@@ -23,5 +23,8 @@
     "bugs": {
         "url": "https://github.com/supdegrave/shibari-notes/issues"
     },
-    "homepage": "https://github.com/supdegrave/shibari-notes#readme"
+    "homepage": "https://github.com/supdegrave/shibari-notes#readme",
+    "devDependencies": {
+        "prettier": "1.19.1"
+    }
 }

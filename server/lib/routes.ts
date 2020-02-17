@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { TieController } from "./controllers/tie.controller";
+import { TieController } from './controllers/tie.controller';
 
 export class Routes {
     public tieController: TieController = new TieController();
@@ -7,7 +7,7 @@ export class Routes {
     constructor(app) {
         app.route('/').get((request: Request, response: Response) => {
             response.status(200).send({
-                message: 'GET success'
+                message: 'GET success',
             });
         });
 

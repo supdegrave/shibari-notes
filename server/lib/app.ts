@@ -5,9 +5,7 @@ import * as mongoose from 'mongoose';
 import { serverEnvironment } from './environment';
 import { Routes } from './routes';
 
-
 class App {
-
     app: express.Application;
     routes: Routes;
 
@@ -27,10 +25,12 @@ class App {
     }
 
     private mongoSetup(): void {
-        const mongoUrl: string = process.env.MONGODB_URI || serverEnvironment.localDatabase;
+        const mongoUrl: string =
+            process.env.MONGODB_URI || serverEnvironment.localDatabase;
         const options = { useNewUrlParser: true };
 
-        mongoose.connect(mongoUrl, options)
+        mongoose
+            .connect(mongoUrl, options)
             .then(this.mongoose_onConnectSuccess)
             .catch(this.mongoose_onConnectError);
     }
@@ -42,7 +42,6 @@ class App {
     private mongoose_onConnectError(reason: any) {
         console.warn('unable to connect to mongodb', reason);
     }
-
 }
 
 export default new App().app;

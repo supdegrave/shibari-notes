@@ -45,6 +45,6 @@ import {
         MatFormFieldModule,
         MatInputModule,
         MatIconModule,
-    ]
+    ],
 })
-export class MaterialModule { }
+export class MaterialModule {}

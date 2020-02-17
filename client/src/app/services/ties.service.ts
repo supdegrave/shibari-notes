@@ -6,18 +6,20 @@ import { tap } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { Tie } from '../models/tie';
 
-
 @Injectable({
-    providedIn: 'root'
+    providedIn: 'root',
 })
 export class TiesService {
-
     private _tiesList: Tie[];
     private _filterList: App.TiesFilter[] = [];
     private _shouldWrite: boolean;
 
-    getLocalTiesList$: Observable<ShibariNotes.Tie[]> = from(localforage.getItem<ShibariNotes.Tie[]>('tiesList'));
-    fetchTiesList$: Observable<any> = this.http.get(`${environment.apiServer}/api/ties`);
+    getLocalTiesList$: Observable<ShibariNotes.Tie[]> = from(
+        localforage.getItem<ShibariNotes.Tie[]>('tiesList')
+    );
+    fetchTiesList$: Observable<any> = this.http.get(
+        `${environment.apiServer}/api/ties`
+    );
 
     private getTiesObserver: Observer<ShibariNotes.Tie[]> = {
         next: (response: ShibariNotes.Tie[]) => {
@@ -31,7 +33,9 @@ export class TiesService {
         error: (err: HttpErrorResponse): void => {
             console.warn(`get: /api/ties\n => error:`, err);
         },
-        complete: () => { /* no-op */}
+        complete: () => {
+            /* no-op */
+        },
     };
 
     private mapTiesJsonToClass(tiesJson: ShibariNotes.Tie[]): Tie[] {
@@ -41,8 +45,7 @@ export class TiesService {
     }
 
     constructor(private http: HttpClient) {
-        this.getLocalTiesList$
-            .subscribe(this.getTiesObserver);
+        this.getLocalTiesList$.subscribe(this.getTiesObserver);
     }
 
     get isInitialized(): boolean {
@@ -50,9 +53,8 @@ export class TiesService {
     }
 
     initialize() {
-        this.fetchTiesList$.pipe(
-            tap(() => this._shouldWrite = true)
-        )
+        this.fetchTiesList$
+            .pipe(tap(() => (this._shouldWrite = true)))
             .subscribe(this.getTiesObserver);
     }
 
@@ -72,7 +74,10 @@ export class TiesService {
         let filteredTies = this._tiesList;
 
         this._filterList.forEach(
-            (filter: App.TiesFilter) => filteredTies = filteredTies.filter((tie: Tie) => tie[filter.propertyName] === filter.value)
+            (filter: App.TiesFilter) =>
+                (filteredTies = filteredTies.filter(
+                    (tie: Tie) => tie[filter.propertyName] === filter.value
+                ))
         );
 
         return filteredTies;

@@ -17,7 +17,7 @@ const PATHS = {
 const routes: Routes = [
     {
         path: PATHS.LOGIN,
-        component: LoginViewComponent
+        component: LoginViewComponent,
     },
     {
         path: PATHS.HOME,
@@ -43,15 +43,13 @@ const routes: Routes = [
     {
         path: '**',
         redirectTo: PATHS.LOGIN,
-        pathMatch: 'full'
-    }
+        pathMatch: 'full',
+    },
 ];
-
-
 
 @NgModule({
     imports: [RouterModule.forRoot(routes)],
     exports: [RouterModule],
     // providers: [AuthGuardService]
 })
-export class RoutingModule { }
+export class RoutingModule {}

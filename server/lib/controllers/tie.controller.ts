@@ -7,28 +7,25 @@ const Tie = mongoose.model('Tie', TieModel);
 
 export class TieController {
     post(request: Request, response: Response) {
-        new Tie(request.body).save()
-            .then(
-                (tie: mongoose.Document) => response.json(tie),
-                err => response.send(err)
-            );
+        new Tie(request.body).save().then(
+            (tie: mongoose.Document) => response.json(tie),
+            err => response.send(err)
+        );
     }
 
     get(request: Request, response: Response) {
         const tieId = request.params.id;
 
         if (tieId) {
-            Tie.findById(tieId)
-                .then(
-                    (tie: mongoose.Document) => response.json(tie),
-                    err => response.send(err)
-                );
+            Tie.findById(tieId).then(
+                (tie: mongoose.Document) => response.json(tie),
+                err => response.send(err)
+            );
         } else {
-            Tie.find({})
-                .then(
-                    (ties: mongoose.Document[]) => response.json(ties),
-                    err => response.send(err)
-                );
+            Tie.find({}).then(
+                (ties: mongoose.Document[]) => response.json(ties),
+                err => response.send(err)
+            );
         }
     }
 
@@ -38,7 +35,7 @@ export class TieController {
 
         if (tieId === 'new') {
             // TODO: should this throw?
-            console.log('creating new via `put` - shouldn\'t happen! ');
+            console.log(`creating new via put - shouldn't happen!`);
             query = Tie.create(request.body);
         } else {
             const conditions = { _id: tieId };
@@ -46,18 +43,16 @@ export class TieController {
             query = Tie.findOneAndUpdate(conditions, request.body, options);
         }
 
-        query
-            .then(
-                (tie: mongoose.Document) => response.json(tie),
-                err => response.send(err)
-            );
+        query.then(
+            (tie: mongoose.Document) => response.json(tie),
+            err => response.send(err)
+        );
     }
 
     delete(request: Request, response: Response) {
-        Tie.deleteOne({ _id: request.params.id })
-            .then(
-                _ => response.json({ message: 'Tie deleted' }),
-                err => response.send(err)
-            );
+        Tie.deleteOne({ _id: request.params.id }).then(
+            _ => response.json({ message: 'Tie deleted' }),
+            err => response.send(err)
+        );
     }
 }

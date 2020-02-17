@@ -1,5 +1,4 @@
 export class Tie implements ShibariNotes.Tie {
-
     private newTie: ShibariNotes.Tie = {
         _id: undefined,
         created: undefined,
@@ -35,11 +34,12 @@ export class Tie implements ShibariNotes.Tie {
 
     get isDirty(): boolean {
         const originalTieProps = Object.getOwnPropertyNames(this._tie);
-        return originalTieProps.some((prop: string) => this[prop] !== this._tie[prop]);
+        return originalTieProps.some(
+            (prop: string) => this[prop] !== this._tie[prop]
+        );
     }
 
     discardChanges(): void {
         Object.assign(this, this._tie);
     }
-
 }

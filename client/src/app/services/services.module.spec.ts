@@ -9,9 +9,7 @@ describe('ServicesModule', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [
-                HttpClientTestingModule
-            ]
+            imports: [HttpClientTestingModule],
         }).compileComponents();
 
         tiesService = TestBed.get(TiesService);

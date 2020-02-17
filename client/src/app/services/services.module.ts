@@ -4,17 +4,11 @@ import { NgModule } from '@angular/core';
 import { TiesService } from './ties.service';
 
 @NgModule({
-    imports: [
-        CommonModule
-    ],
-    providers: [
-        TiesService
-    ]
+    imports: [CommonModule],
+    providers: [TiesService],
 })
 export class ServicesModule {
-
     constructor(tiesService: TiesService) {
         tiesService.initialize();
     }
-
 }

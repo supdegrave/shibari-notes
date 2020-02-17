@@ -5,7 +5,6 @@ import { MarkdownModule } from 'ngx-markdown';
 import { MaterialModule } from 'src/app/material/material.module';
 import { TieViewComponent } from './tie-view.component';
 
-
 describe('TieViewComponent', () => {
     let component: TieViewComponent;
     let fixture: ComponentFixture<TieViewComponent>;
@@ -18,11 +17,8 @@ describe('TieViewComponent', () => {
                 MarkdownModule.forRoot(),
                 MaterialModule,
             ],
-            declarations: [
-                TieViewComponent
-            ]
-        })
-            .compileComponents();
+            declarations: [TieViewComponent],
+        }).compileComponents();
     }));
 
     beforeEach(() => {

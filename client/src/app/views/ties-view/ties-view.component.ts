@@ -5,14 +5,13 @@ import { TiesService } from 'src/app/services/ties.service';
 @Component({
     selector: 'app-ties-view',
     templateUrl: './ties-view.component.html',
-    styleUrls: ['./ties-view.component.scss']
+    styleUrls: ['./ties-view.component.scss'],
 })
 export class TiesViewComponent implements OnInit {
-
     constructor(
         private route: ActivatedRoute,
         public tiesService: TiesService
-    ) { }
+    ) {}
 
     ngOnInit() {
         const paramMap = this.route.snapshot.paramMap;
@@ -23,5 +22,4 @@ export class TiesViewComponent implements OnInit {
             this.tiesService.addFilter(filterKey, filterValue);
         }
     }
-
 }

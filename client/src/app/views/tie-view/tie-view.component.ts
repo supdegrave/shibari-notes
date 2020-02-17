@@ -8,10 +8,9 @@ import { TiesService } from 'src/app/services/ties.service';
 @Component({
     selector: 'app-tie-view',
     templateUrl: './tie-view.component.html',
-    styleUrls: ['./tie-view.component.scss']
+    styleUrls: ['./tie-view.component.scss'],
 })
 export class TieViewComponent implements OnInit {
-
     tie: Tie;
     isNew: boolean;
     tieUri: string;
@@ -28,7 +27,7 @@ export class TieViewComponent implements OnInit {
         this.isContentEditable = false;
     }
 
-    onHttpError = (error: HttpErrorResponse) => {
+    onHttpError(error: HttpErrorResponse) {
         console.error(error);
     }
 
@@ -39,16 +38,14 @@ export class TieViewComponent implements OnInit {
         this.tieUri = `${environment.apiServer}/api/ties/${tieId}`;
 
         if (!this.isNew) {
-            const initInterval = setInterval(
-                () => {
-                    if (this.tiesService.isInitialized) {
-                        this.tie = this.tiesService.getTieById(tieId);
-                        clearInterval(initInterval);
-                    } else {
-                        console.log('tick ');
-                    }
-                }, 10
-            );
+            const initInterval = setInterval(() => {
+                if (this.tiesService.isInitialized) {
+                    this.tie = this.tiesService.getTieById(tieId);
+                    clearInterval(initInterval);
+                } else {
+                    console.log('tick ');
+                }
+            }, 10);
         } else {
             this.tie = new Tie();
             this.isContentEditable = true;
@@ -68,7 +65,9 @@ export class TieViewComponent implements OnInit {
     }
 
     deleteClick() {
-        console.log(`deleteClick:\n  TODO: delete from local store, pop toast with 'Undo' option\n  TODO: if toast closes without 'Undo' click, http delete`);
+        console.log(
+            `deleteClick:\n  TODO: delete from local store, pop toast with 'Undo' option\n  TODO: if toast closes without 'Undo' click, http delete`
+        );
         // this.http.delete(this.tieUri);
     }
 
@@ -81,23 +80,23 @@ export class TieViewComponent implements OnInit {
     saveClick() {
         this.isContentEditable = false;
 
-        const httpCall = (this.isNew)
+        const httpCall = this.isNew
             ? this.http.post(this.tieUri, this.tie)
             : this.http.put(this.tieUri, this.tie);
 
-        httpCall.subscribe(
-            (response: ShibariNotes.Tie) => {
-                console.log(`saved ${response.name}`);
-            },
-            this.onHttpError
-        );
+        httpCall.subscribe((response: ShibariNotes.Tie) => {
+            console.log(`saved ${response.name}`);
+        }, this.onHttpError);
     }
 
     updateTie(property: string, event): void {
         try {
             this.tie[property] = event.target.innerText;
         } catch (error) {
-            console.log(`Attempted to set missing property [${property}]`, error);
+            console.log(
+                `Attempted to set missing property [${property}]`,
+                error
+            );
         }
     }
 }

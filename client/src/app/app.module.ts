@@ -30,11 +30,9 @@ import { TiesViewComponent } from './views/ties-view/ties-view.component';
         // app-specific modules
         MaterialModule,
         RoutingModule,
-        ServicesModule
+        ServicesModule,
     ],
     providers: [],
-    bootstrap: [
-        AppComponent
-    ]
+    bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
