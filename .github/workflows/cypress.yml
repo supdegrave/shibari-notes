@@ -19,10 +19,16 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@v1
-    - name: Cypress run
+    - name: Start server in the background
+      run: npm run start &
+    - name: Install Cypress and run tests
       uses: cypress-io/github-action@v1
       with:
-        # build: npm run build
-        start: npm run start
-        # working-directory: client
-        wait-on: http://localhost:4200
+        working-directory: client
+    # - name: Cypress run
+    #   uses: cypress-io/github-action@v1
+    #   with:
+    #     # build: npm run build
+    #     start: npm run start
+    #     # working-directory: client
+    #     wait-on: http://localhost:4200
