@@ -20,9 +20,9 @@ jobs:
       - name: npm install / start servers
         run: |
           npm ci
-          npm start & npx wait-on http://localhost:3000
-        env:
-          CI: true
+          npm run start & npx wait-on http://localhost:3000
+#         env:
+#           CI: true
       - name: Run Cypress
         run: |
           npx cypress run
