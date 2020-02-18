@@ -10,4 +10,4 @@ jobs:
       - uses: actions/setup-node@v1
         with:
           node-version: '10.x'
-      - run: npm run cypress
+      - run: npm run test:cypress
