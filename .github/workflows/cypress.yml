@@ -17,14 +17,26 @@ jobs:
   cypress-run:
     runs-on: ubuntu-16.04
     steps:
-    - name: Checkout
-      uses: actions/checkout@v1
-    - name: Start server in the background
-      run: npm install && npm run start &
-    - name: Install Cypress and run tests
-      uses: cypress-io/github-action@v1
-      with:
-        working-directory: client
+      - name: npm install / start servers
+        run: |
+          npm ci
+          npm start & npx wait-on http://localhost:3000
+        env:
+          CI: true
+      - name: Run Cypress
+        run: |
+          npx cypress run
+        env:
+          CI: true
+
+#     - name: Checkout
+#       uses: actions/checkout@v1
+#     - name: Start server in the background
+#       run: npm install && npm run start &
+#     - name: Install Cypress and run tests
+#       uses: cypress-io/github-action@v1
+#       with:
+#         working-directory: client
     # - name: Cypress run
     #   uses: cypress-io/github-action@v1
     #   with:
