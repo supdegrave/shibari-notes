@@ -19,7 +19,7 @@ jobs:
     steps:
       - name: npm install / start servers
         run: |
-          npm ci
+          npm install
           npm run start & npx wait-on http://localhost:3000
 #         env:
 #           CI: true
