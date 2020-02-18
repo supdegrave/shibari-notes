@@ -20,7 +20,7 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v1
     - name: Start server in the background
-      run: npm run start &
+      run: npm install && npm run start &
     - name: Install Cypress and run tests
       uses: cypress-io/github-action@v1
       with:
