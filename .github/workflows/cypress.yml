@@ -1,40 +1,18 @@
-# name: Cypress
+# YAML Workflow syntax for GitHub Actions
+# https://help.github.com/en/actions/reference/workflow-syntax-for-github-actions
 
-# on: [push]
-
-# # jobs:
-# #   build:
-# #     runs-on: ubuntu-latest
-# #     steps:
-# #       - uses: actions/checkout@v2
-# #       - uses: actions/setup-node@v1
-# #         with:
-# #           node-version: '10.x'
-# #       - run: npm run test:cypress
-# #     name: Cypress
-
-# jobs:
-#   cypress-run:
-#     runs-on: ubuntu-16.04
-#     steps:
-#       - uses: actions/checkout@v2
-#       - uses: actions/setup-node@v1
-#         with:
-#           node-version: '10.x'
-#       - run: npm run test:cypress
-#     name: Cypress
-#     - name: Checkout
-#       uses: actions/checkout@v1
-#     - name: Start server in the background
-#       run: npm install && npm run start &
-#     - name: Install Cypress and run tests
-#       uses: cypress-io/github-action@v1
-#       with:
-#         working-directory: client
-#     # - name: Cypress run
-#     #   uses: cypress-io/github-action@v1
-#     #   with:
-#     #     # build: npm run build
-#     #     start: npm run start
-#     #     # working-directory: client
-#     #     wait-on: http://localhost:4200
+name: Cypress
+on: [push]
+jobs:
+  Cypress:
+      runs-on: ubuntu-16.04
+      steps:
+          - uses: actions/checkout@v2
+          - uses: actions/setup-node@v1
+            with:
+                node-version: "10.x"
+          - uses: cypress-io/github-action@v1
+            with:
+              start: npm start
+              working-directory: client
+              wait-on: 'http://localhost:4200'

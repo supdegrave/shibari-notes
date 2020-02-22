@@ -7,7 +7,6 @@
         "test:server": "echo \"no server tests defined yet\"",
         "test:client": "cd client && ng test",
         "test:client:headless": "cd client && npm install && npm run test:headless",
-        "test:cypress": "cd client && npm install && npm run start && npm run cypress",
         "start": "concurrently --prefix pid \"npm run start:mongodb\" \"npm run start:server\" \"npm run start:client\"",
         "start:server": "cd ./server && npm run dev:watch",
         "start:client": "cd ./client && ng serve",
@@ -28,7 +27,9 @@
     "homepage": "https://github.com/supdegrave/shibari-notes#readme",
     "devDependencies": {
         "@angular/cli": "^9.0.2",
+        "concurrently": "^5.1.0",
         "prettier": "1.19.1",
         "puppeteer": "^2.1.1"
     }
 }
+
