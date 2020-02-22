@@ -8,7 +8,7 @@
         "test": "ng test",
         "test:headless": "ng test --watch=false --browsers=ChromeHeadlessCustom",
         "ci:karma": "ng test --watch=false --browsers=ChromeHeadlessCustom",
-        "ci:cypress": "npm install && nom start & cypress run",
+        "ci:cypress": "npm install && npm start & cypress run",
         "lint": "ng lint",
         "e2e": "ng e2e",
         "cypress": "cypress run",
