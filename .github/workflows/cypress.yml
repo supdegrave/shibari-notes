@@ -2,10 +2,7 @@
 # https://help.github.com/en/actions/reference/workflow-syntax-for-github-actions
 
 name: Cypress
-
 on: [push]
-# on: [push, pull_request]
-
 jobs:
   Cypress:
       runs-on: ubuntu-16.04
@@ -19,28 +16,3 @@ jobs:
               start: npm start
               working-directory: client
               wait-on: 'http://localhost:4200'
-
-
-# jobs:
-#     Cypress:
-#         # runs-on: ubuntu-16.04
-#         runs-on: ubuntu-latest
-#         steps:
-#             - uses: actions/checkout@v2
-#             - uses: actions/setup-node@v1
-#               with:
-#                   node-version: "10.x"
-#             - run: npm run ci:cypress
-
-
-# jobs:
-#     Cypress:
-#         runs-on: ubuntu-16.04
-#         steps:
-#           - name: checkout
-#             uses: actions/checkout@v2
-#           - name: run cypress
-#             uses: cypress-io/github-action@v1
-#               with:
-#                 start: npm start
-#                 working-directory: client
